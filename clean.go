@@ -5,12 +5,12 @@
 package cleaner
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
 	"time"
-	"fmt"
 )
 
 type FCleaner struct {
@@ -37,6 +37,10 @@ func New(root string, expire time.Duration, interval time.Duration, batchNum int
 			return true
 		},
 	}
+}
+
+func (fc *FCleaner) SetFilter(filter func(info os.FileInfo) (willClean bool)) {
+	fc.filter = filter
 }
 
 // StartCleanTask start the cleaning task
