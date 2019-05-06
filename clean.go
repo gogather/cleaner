@@ -46,6 +46,7 @@ func (fc *FCleaner) SetFilter(filter func(info os.FileInfo) (willClean bool)) {
 func (fc *FCleaner) StartCleanTask() {
 	go func(fc *FCleaner) {
 		for {
+			fc.count = 0
 			err := fc.clean(fc.root)
 			if err != nil {
 				log.Printf("[FCleaner] clean err: %v\n", err)
